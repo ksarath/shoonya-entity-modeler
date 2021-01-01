@@ -1,0 +1,71 @@
+plugins {
+    id 'scala'
+}
+
+group 'dev.shoonya'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    ext {
+        scalaV = '2.13.4'
+        scalaMajorV = '2.13'
+
+        zioV = '1.0.3'
+        zioCatsInterOpV = '2.2.0.1'
+
+        circeV = '0.13.0'
+        http4sV = '0.21.14'
+
+        slf4jV = '1.7.30'
+    }
+
+    implementation group: 'org.scala-lang', name: 'scala-library', version: scalaV
+    implementation group: 'dev.zio', name: 'zio_' + scalaMajorV, version: zioV
+    implementation group: 'dev.zio', name: 'zio-streams_' + scalaMajorV, version: zioV
+    implementation group: 'dev.zio', name: 'zio-interop-cats_' + scalaMajorV, version: zioCatsInterOpV
+
+    implementation group: 'org.http4s', name: 'http4s-core_' + scalaMajorV, version: http4sV
+    implementation group: 'org.http4s', name: 'http4s-dsl_' + scalaMajorV, version: http4sV
+
+    implementation group: 'org.http4s', name: 'http4s-blaze-server_' + scalaMajorV, version: http4sV
+    implementation group: 'org.http4s', name: 'http4s-blaze-client_' + scalaMajorV, version: http4sV
+
+    implementation group: 'org.http4s', name: 'http4s-server_' + scalaMajorV, version: http4sV
+    implementation group: 'org.http4s', name: 'http4s-client_' + scalaMajorV, version: http4sV
+
+    implementation group: 'org.http4s', name: 'http4s-async-http-client_' + scalaMajorV, version: http4sV
+
+    implementation group: 'org.http4s', name: 'http4s-circe_' + scalaMajorV, version: http4sV
+    implementation group: 'io.circe', name: 'circe-core_' + scalaMajorV, version: circeV
+    implementation group: 'io.circe', name: 'circe-parser_' + scalaMajorV, version: circeV
+    // implementation group: 'io.circe', name: 'circe-shapes_' + scalaMajorV, version: circeV
+    // implementation group: 'io.circe', name: 'circe-literal_' + scalaMajorV, version: circeV
+    implementation group: 'io.circe', name: 'circe-generic_' + scalaMajorV, version: circeV
+    implementation group: 'io.circe', name: 'circe-generic-extras_' + scalaMajorV, version: circeV
+    // implementation group: 'org.http4s', name: 'http4s-json4s-jackson_' + scalaMajorV, version: http4sV
+
+    implementation group: 'org.slf4j', name: 'slf4j-jdk14', version: slf4jV
+
+    testCompile group: 'org.http4s', name: 'http4s-testing_' + scalaMajorV, version: http4sV
+}
+
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.additionalParameters = [
+            "-encoding", "UTF-8",
+            "-feature",
+            "-deprecation",
+            "-unchecked",
+            "-language:implicitConversions",
+            "-Ymacro-annotations",
+            "-language:higherKinds",
+            "-Ydelambdafy:inline"
+    ]
+}
+
+test {
+    useJUnitPlatform()
+}
